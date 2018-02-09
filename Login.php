@@ -1,6 +1,4 @@
 <?php
-$con = mysqli_connect("localhost", "", "", "");
-	
 	$userID = $_POST["userID"];
 	$userPassword = $_POST["userPassword"];
 
