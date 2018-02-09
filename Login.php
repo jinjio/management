@@ -1,17 +1,26 @@
 <?php
 $con = mysqli_connect("localhost", "", "", "");
-
+	
 	$userID = $_POST["userID"];
 	$userPassword = $_POST["userPassword"];
-	$userName = $_POST["userName"];
-	$userAge = $_POST["userAge"];
-	
-	$statement = mysqli_prepare($con, "INSERT INTO USER VALUES (?,?,?,?)");
-	mysqli_stmt_bind_param($statement, "sssi", $uesrID, $userPassword, $userName, $userAge);
+
+	$statement = mysqli_prepare($con, "SELECT * FROM USER WHER userID = ? AND userPassword = ?");
+	mysqli_stmt_bind_param($statement, "ss", $userID, $userPassword);
 	mysqli_stmt_execute($statement);
 
-	$response = array();
-	$response["success"] = true;
+	mysqli_stmt_store_result($statement);
+	mysqli_stmt_bind_result($statement, $userID, $userPassword, $userName, userAge);
 
+	$response = array();
+	$response["success"] = false;
+
+	while(mysqli_stmt_fetch($statement)){
+		$response["success"] = true;
+		$response["userID"] = $userID;
+		$response["userPassword"] = $userPassword;
+		$response["userName"] = $userName;
+		$response["useAge"] = $userAge;
+	}
+	
 	echo json_encode($response);
 ?>
