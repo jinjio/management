@@ -1,9 +1,0 @@
-CREATE TABLE `USER` (
-
-	userID VARCHAR(20) NOT NULL,
-	userPassword VARCHAR(20) NOT NULL,
-	userName VARCHAR(20) NOT NULL,
-	userAge INT NOT NULL,
-	PRIMARY KEY(userID)
-	
-);
